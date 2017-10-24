@@ -1,0 +1,50 @@
+.header {
+  height: 85vh; /* 85% of viewport height */
+  background-image: linear-gradient(
+    to right bottom,
+    rgba($color-primary-light, .8),
+    rgba($color-primary-dark, .8)
+  ), url('../img/hero-small.jpg');
+  background-size: cover;
+  background-position: top;
+  position: relative;
+
+  @supports(-webkit-clip-path: polygon(0 0, 100% 0, 100% 75vh, 0 100%)) or (clip-path: polygon(0 0, 100% 0, 100% 75vh, 0 100%)) {
+    -webkit-clip-path: polygon(0 0, 100% 0, 100% 75vh, 0 100%);
+    clip-path: polygon(0 0, 100% 0, 100% 75vh, 0 100%); /* clips to cut out a polygon, from top left x y, top right x y, bottom right x y, bottom left x y (can define points in any order) */
+    height: 95vh;
+  } 
+
+  @media only screen and (min-resolution: $apple-dpi-2x) and (min-width: 37.5em), only screen and (-webkit-min-device-pixel-ratio: 2) and (min-width: 37.5em), only screen and (min-width: 125em) {
+    // when it is a 2x screen and larger than 600px OR min-width 2000px
+    // because our small image is 1200px in width, so there's no need to go higher in image size because phones with high dpi, but lower res than half the image size
+    background-image: linear-gradient(
+      to right bottom,
+      rgba($color-primary-light, .8),
+      rgba($color-primary-dark, .8)
+    ), url('../img/hero.jpg');
+  }
+
+  @include respond(phone) {
+    -webkit-clip-path: polygon(0 0, 100% 0, 100% 85vh, 0 100%);
+    clip-path: polygon(0 0, 100% 0, 100% 85vh, 0 100%); /* clips to cut out a polygon, from top left x y, top right x y, bottom right x y, bottom left x y (can define points in any order) */  
+  }
+
+  &__logo-box {
+    position: absolute;
+    top: 4rem;
+    left: 4rem;
+  }
+  
+  &__logo {
+    height: 3.5rem;
+  }
+  
+  &__text-box {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -40%); /* adjust in relation to the element itself because you account for 50% from top and 50% from left of absolute position--we want it to be higher, so using -40% instead */
+    text-align: center;
+  }
+}

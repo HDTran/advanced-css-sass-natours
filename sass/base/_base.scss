@@ -1,0 +1,35 @@
+/* Universal selector that cleans up the code */
+*, *::after, *::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit; /* forces box-sizing to inherit since it doesn't default inherit, we'll declare in body */
+}
+
+html {
+  font-size: 62.5%; /* setting it to px value here will override user font-size, so better to use percentage of--we want 10px to work in easy rem measurements and since browsers normally serve 16px for base size, do 10 pixels (desired)/16 pixels (browser default) = 0.625 for the percentage, defines what 1rem is */
+
+  // use same for phone as tab-port, so no need to define. Remember that order matters, last media query should be most specific to override previous
+  @include respond(big-desktop) {
+    font-size: 75%; // 1 rem = 12px, so 12px (desired)/16px (default) = 75%
+  }
+  @include respond(tab-land) {
+    font-size: 56.25%; // 1 rem = 8px, so 9px (desired)/16px (default) = 56.26%
+  }
+  @include respond(tab-port) {
+    font-size: 50%; // 1 rem = 8px, so 8px (desired)/16px (default) = 50%
+  }
+}
+
+body {
+  box-sizing: border-box; /* removes padding and margin from box-sizing calculations */
+  padding: 3rem;
+
+  @include respond(tab-port) {
+    padding: 0;
+  }
+}
+
+::selection {
+  background-color: $color-primary;
+  color: $color-white;
+}
